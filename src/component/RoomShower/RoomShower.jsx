@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from '../../logo.svg';
-import './RoomShower.css';
+import React, { useEffect, useState } from 'react';
 
-const RoomShower = () => (
-    <div className="App">
-        <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-                Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Learn React
-            </a>
-        </header>
-    </div>
-);
+import './RoomShower.css';
+import { fetchRooms } from '../../actions/roomActions';
+import RoomInstance from './RoomInstance';
+
+const RoomShower = () => {
+    const [rooms, setRooms] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        fetchRooms(0)
+            .then((response) => setRooms(response.data.content))
+            .catch((error) => setErrorMessage(error));
+    }, []);
+    console.log(rooms);
+    return rooms && rooms.map((room) => <RoomInstance room={room} />);
+};
 
 export default RoomShower;
