@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from 'react';
 
-import './RoomShower.css';
-import { fetchRooms } from '../../actions/roomActions';
+import './BookedRooms.css';
+import { fetchEmployeesReservations } from '../../actions/employeeActions';
 import RoomInstance from './RoomInstance';
 import Pagination from '@material-ui/lab/Pagination';
 
-const RoomShower = ({ employeeId }) => {
+const BookedRooms = ({ employeeId }) => {
     const [rooms, setRooms] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [page, setPage] = useState(1);
-
-    const paginationOnClick = (e, value) => {
-        setPage(value);
-    };
 
     const isUpdate = (flag) => {
-        fetchRooms(page - 1)
+        fetchEmployeesReservations(employeeId)
             .then((response) => setRooms(response.data))
             .catch((error) => setErrorMessage(error));
     };
 
     useEffect(() => {
-        fetchRooms(page - 1)
+        fetchEmployeesReservations(employeeId)
             .then((response) => setRooms(response.data))
             .catch((error) => setErrorMessage(error));
-    }, [page]);
+    }, []);
 
     return (
         <React.Fragment>
             <div className="rooms-container">
                 {rooms &&
-                    rooms.models &&
-                    rooms.models.map((room) => (
+                    rooms.map((room) => (
                         <RoomInstance
                             employeeId={employeeId}
                             isUpdate={isUpdate}
@@ -40,15 +34,8 @@ const RoomShower = ({ employeeId }) => {
                         />
                     ))}
             </div>
-            <Pagination
-                onChange={paginationOnClick}
-                count={rooms && rooms.totalPages}
-                className="rooms-pagination"
-                variant="outlined"
-                shape="rounded"
-            />
         </React.Fragment>
     );
 };
 
-export default RoomShower;
+export default BookedRooms;
