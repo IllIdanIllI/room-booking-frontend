@@ -3,36 +3,38 @@ import React, { useEffect, useState } from 'react';
 import './RoomShower.css';
 import { fetchRooms } from '../../actions/roomActions';
 import RoomInstance from './RoomInstance';
-import { Grid } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 
 const RoomShower = () => {
     const [rooms, setRooms] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
+    const [page, setPage] = useState(1);
+
+    const paginationOnClick = (e, value) => {
+        setPage(value);
+    };
 
     useEffect(() => {
-        fetchRooms(0)
-            .then((response) => setRooms(response.data.content))
+        fetchRooms(page - 1)
+            .then((response) => setRooms(response.data))
             .catch((error) => setErrorMessage(error));
-    }, []);
+    }, [page]);
 
     return (
         <div className="rooms-container">
             {rooms &&
-                rooms.map((room) => <RoomInstance key={room.id} room={room} />)}
+                rooms.models &&
+                rooms.models.map((room) => (
+                    <RoomInstance key={room.id} room={room} />
+                ))}
+            <Pagination
+                onChange={paginationOnClick}
+                count={rooms && rooms.totalPages}
+                variant="outlined"
+                shape="rounded"
+            />
         </div>
     );
-    /*  return (
-      <Grid container direction="row" justify="center" alignItems="center">
-          <Grid container item xs={12}>
-              {rooms &&
-                  rooms.map((room) => (
-                      <Grid container xs={4} sm={4}>
-                          <RoomInstance key={room.id} room={room} />
-                      </Grid>
-                  ))}
-          </Grid>
-      </Grid>
-  ); */
 };
 
 export default RoomShower;
