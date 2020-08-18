@@ -10,10 +10,10 @@ Additionally before booking you can look at time that already have booked.
 On this page you can see your reservations and stop it id it is necessary.
 
 ## !Please pay attention
-There are some unpleasant moments that I had no time to done 
-- Do not reload page, it will reboot your session :disappointment: 
+There are some unpleasant moments that I had no time to done :disappointed_relieved:
+- Do not reload page, it will reboot your session 
 - Error notification you can se only in ``Network`` tab, I can not implement toasts
-:disappointed_relieved: 
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
