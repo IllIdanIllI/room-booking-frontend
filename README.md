@@ -1,3 +1,20 @@
+# Application usage steps
+##1) Login
+First of all you will be on login page. Here you should pass your employee 
+first name, last name  and choose appropriate type. 
+##2) Booking menu
+There is you can see all rooms that you can book. Page contains pagination. For booking 
+pass all your data and it will be committed **WITHOUT RELOADING**. 
+Additionally before booking you can look at time that already have booked.    
+##3) Your reservations page
+On this page you can see your reservations and stop it id it is necessary.
+
+## !Please pay attention
+There are some unpleasant moments that I had no time to done 
+- Do not reload page, it will reboot your session :disappointment:
+- Error notification you can se only in ``Network`` tab, I can not implement toasts
+:disappointed_relieved: 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
